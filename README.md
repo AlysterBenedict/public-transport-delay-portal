@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # TrackDelay
 **Public Transport Delay Reporting Portal**
 
@@ -14,3 +15,6 @@ TrackDelay is a crowdsourced platform that helps commuters detect and report pub
 Currently hosted locally via simple HTTP servers. Simply serve the directory and navigate to `index.html`.
 
 Enjoy tracking!
+=======
+# public-transport-delay-portal
+>>>>>>> 6e7909af3702c7554830d730d18ac5d99bcb4323

@@ -428,6 +428,7 @@
       <div class="nav-item" onclick="window.goHome ? window.goHome() : showPage('page-routes')"><span class="nav-icon">🏠</span><span class="nav-label">Home</span></div>
       <div class="nav-item" onclick="showPage('page-routes')"><span class="nav-icon">🗺️</span><span class="nav-label">Routes</span></div>
       <div class="nav-item" onclick="showPage('page-report')"><span class="nav-icon">📋</span><span class="nav-label">Report Delay</span></div>
+      <div class="nav-item" onclick="window.location.href='live-tracking.html'"><span class="nav-icon">📍</span><span class="nav-label">Live Tracking</span></div>
       <div class="nav-item" onclick="showPage('page-crowd'); if(window.initCrowd) window.initCrowd();"><span class="nav-icon">👥</span><span class="nav-label">Crowd Aggregation</span></div>
       <div class="nav-item active" onclick="showPage('page-admin')"><span class="nav-icon">🛡️</span><span class="nav-label">Admin</span></div>
     </div>
@@ -627,20 +628,52 @@
   </div>
 </div>
 
-<!-- ═══════════════════════════════ GLOBAL FOOTER ═══════════════════════════════ -->
-<footer class="app-footer">
-  <div class="footer-content">
-    <div class="footer-title">TrackDelay</div>
-    <div class="footer-section">
-      <h4>About Us</h4>
-      <p>TrackDelay is a crowdsourced platform that helps commuters detect public transport delays using community reports.</p>
+<!-- ═══════════════════════════════ CHATBOT WIDGET ═══════════════════════════════ -->
+<div id="chatbot-container">
+  <!-- The Chat Window -->
+  <div class="chat-window" id="chat-window">
+    <div class="chat-header">
+      <div class="chat-title">
+        <span style="font-size:18px;">🤖</span> DelayTrack AI
+      </div>
+      <button class="chat-close" onclick="toggleChatbot()">×</button>
     </div>
-    <div class="footer-section">
-      <h4>Contact Us</h4>
-      <p>Email: <a href="mailto:support@delaytrack.com">support@delaytrack.com</a></p>
+    <div class="chat-body" id="chat-body">
+      <div class="chat-msg bot">
+        <div class="chat-bubble">
+          Hi there! I'm your DelayTrack assistant. How can I help you today?
+        </div>
+      </div>
+    </div>
+    <div class="chat-suggestions" id="chat-suggestions">
+      <!-- Recommendations dynamically filled logically -->
+      <button class="suggestion-chip" onclick="sendChatMessage('Are there any delays on Metro Green?')">Are there any delays on Metro Green?</button>
+      <button class="suggestion-chip" onclick="sendChatMessage('How do I report a bus breakdown?')">How do I report a bus breakdown?</button>
+      <button class="suggestion-chip" onclick="sendChatMessage('What is the severity of the delay on Route 3?')">What is the severity of the delay on Route 3?</button>
+    </div>
+    <div class="chat-input-area">
+      <input type="text" id="chat-input" class="chat-input" placeholder="Type a message..." onkeypress="handleChatKeypress(event)" />
+      <button class="chat-send-btn" onclick="handleSendClick()">
+        <svg fill="currentColor" viewBox="0 0 24 24"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg>
+      </button>
     </div>
   </div>
-</footer>
+
+  <!-- The Floating Toggle Button -->
+  <button class="chat-toggle-btn" id="chat-toggle-btn" onclick="toggleChatbot()">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+    </svg>
+  </button>
+</div>
+
+  <script>
+    // Define the toggle globally immediately so the UI button can never fail to find it
+    window.toggleChatbot = function() {
+      const win = document.getElementById("chat-window");
+      if(win) win.classList.toggle("show");
+    };
+  </script>
 
   <!-- Core page switching function - defined as a regular script so it's available immediately -->
   <script>
@@ -755,5 +788,7 @@
     };
   </script>
   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD37i3gi2kIeNoqLPBf0oXQUBpM39knaZ0&callback=initMapCallback" async defer></script>
+  
+  <script src="js/chatbot.js"></script>
 </body>
 </html>

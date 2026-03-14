@@ -456,6 +456,16 @@ function buildTopNav(){
       <span style="font-family:'Syne',sans-serif;font-weight:800;font-size:16px;background:linear-gradient(135deg,#3B82F6,#06B6D4);-webkit-background-clip:text;-webkit-text-fill-color:transparent;">TrackDelay</span>
     </div>
     <div style="flex:1;"></div>
+    <button onclick="window.location.href='live-tracking.html'" style="
+      display:flex;align-items:center;gap:7px;
+      background:rgba(59,130,246,0.12);border:1px solid rgba(59,130,246,0.3);
+      color:#93C5FD;padding:7px 14px;border-radius:10px;
+      font-family:'DM Sans',sans-serif;font-size:13px;font-weight:600;
+      cursor:pointer;transition:all 0.2s;
+    " onmouseover="this.style.background='rgba(59,130,246,0.25)'"
+       onmouseout="this.style.background='rgba(59,130,246,0.12)'">
+      📍 Live Tracking
+    </button>
     <button onclick="showPage('page-report');populateRouteDropdown();gotoStep(1);" style="
       display:flex;align-items:center;gap:7px;
       background:rgba(16,185,129,0.12);border:1px solid rgba(16,185,129,0.3);
