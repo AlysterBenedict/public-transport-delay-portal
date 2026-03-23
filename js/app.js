@@ -59,18 +59,7 @@ function genReports(){
 const MOCK_REPORTS=genReports();
 
 // ═══════════════ PAGE ROUTING ═══════════════
-function showPage(id){
-  document.querySelectorAll(".page").forEach(p=>{
-    p.classList.remove("active");
-    p.style.display="none";
-  });
-  const p=document.getElementById(id);
-  if(!p)return;
-  p.style.display="flex";
-  p.classList.add("active");
-}
-// Immediately export to window so other modules (auth.js) can call it
-window.showPage = showPage;
+// Instead of redefining, we'll patch the window.showPage.
 
 // ═══════════════ ROUTES PAGE ═══════════════
 function initRoutes(){
@@ -178,7 +167,7 @@ function goToReport(routeId){
   if(dEl)dEl.value=now.toISOString().split("T")[0];
   if(tEl)tEl.value=now.toTimeString().slice(0,5);
   if (typeof window.gotoStep === "function") window.gotoStep(1);
-  showPage("page-report");
+  window.showPage("page-report");
 }
 
 // ═══════════════ VEHICLE BACKGROUND ═══════════════
@@ -404,10 +393,10 @@ function appInit(){
   const sess = typeof window.getSession === 'function' ? window.getSession() : null;
   if(sess){
     currentUser=sess;
-    if(sess.role==="admin"){showPage("page-admin");if(typeof window.initAdmin==="function")window.initAdmin();}
-    else{showPage("page-routes");initRoutes();}
+    if(sess.role==="admin"){window.showPage("page-admin");if(typeof window.initAdmin==="function")window.initAdmin();}
+    else{window.showPage("page-routes");initRoutes();}
   }else{
-    showPage("page-login");
+    window.showPage("page-login");
   }
 }
 
@@ -523,15 +512,15 @@ function removeTopNav(){
 }
 
 function goHome(){
-  showPage("page-routes");
+  window.showPage("page-routes");
   initRoutes();
   buildTopNav();
 }
 
 // patch showPage to manage nav
-const _origShowPage=showPage;
+const _origShowPage=window.showPage;
 window.showPage=function(id){
-  _origShowPage(id);
+  if(_origShowPage) _origShowPage(id);
   if(id==="page-routes"||id==="page-report"||id==="page-crowd"){
     buildTopNav();
     const rp=document.getElementById("page-routes");
